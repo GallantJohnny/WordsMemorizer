@@ -26,6 +26,10 @@ class TodayWords extends Component {
     wordIndex: 0,
   }
 
+  componentDidMount() {
+    this.props.getTodaysWords();
+  }
+
   checkSolution = (e) => {
     e.preventDefault();
     if (this.state.wordIndex < this.props.words.length) {
@@ -63,10 +67,6 @@ class TodayWords extends Component {
       answer: event.target.value,
       isAnswered: false
     });
-  }
-
-  componentDidMount() {
-    this.state.input.current.focus();
   }
 
   render() {

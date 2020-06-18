@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const VocabularySchema = new Schema({
+const TodaysWordsSchema = new Schema({
   ownerId: {
     type: String,
     required: true
@@ -11,7 +11,7 @@ const VocabularySchema = new Schema({
     required: false,
     default: []
   },
-  completed: {
+  isCompleted: {
     type: Boolean,
     required: true,
     default: false
@@ -31,4 +31,4 @@ const VocabularySchema = new Schema({
   }
 });
 
-module.exports = Vocabulary = mongoose.model('todaysWords', VocabularySchema);
+module.exports = TodaysWords = mongoose.model('todaysWord', TodaysWordsSchema);

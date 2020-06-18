@@ -1,5 +1,5 @@
 import { GET_TODAYS_WORDS, EDIT_TODAYS_WORDS } from './types';
-import axios from 'axios';
+import { instance as axios } from '../axiosConfig';
 
 import { getToken } from './authActions';
 

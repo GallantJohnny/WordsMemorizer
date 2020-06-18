@@ -14,7 +14,7 @@ apiRouter.post('/modifyWord/:wordId', userController.authToken, vocabularyContro
 apiRouter.delete('/deleteWord/:wordId', userController.authToken, vocabularyController.deleteWord);
 
 // Todays words
-apiRouter.get('/todaysWords', userController.authToken, todaysWordsController.getTodaysWords);
+apiRouter.get('/todaysWords', userController.authToken, todaysWordsController.createTodaysWords);
 
 // User authentication
 apiRouter.post('/login', userController.login);
