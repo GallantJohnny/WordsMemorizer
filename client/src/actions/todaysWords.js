@@ -14,7 +14,8 @@ export const getTodaysWords = () => {
   return (dispatch, getState) => {
     axios.get('/todaysWords', getToken(getState)).then(todaysWords => {
       dispatch({
-        type: GET_TODAYS_WORDS
+        type: GET_TODAYS_WORDS,
+        payload: todaysWords.data
       });
     }).catch(err => console.log(err));
 

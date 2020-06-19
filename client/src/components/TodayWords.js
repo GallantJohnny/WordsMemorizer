@@ -32,13 +32,15 @@ class TodayWords extends Component {
 
   checkSolution = (e) => {
     e.preventDefault();
-    if (this.state.wordIndex < this.props.words.length) {
-      if (this.state.answer === this.props.words[this.state.wordIndex].solution) {
-        setTimeout(() => this.onSolutionSubmitted(true), 2000);
-        this.setState({ isCorrect: true });
-      } else {
-        setTimeout(() => this.onSolutionSubmitted(false), 2000);
-      }
+    const { words } = this.props;
+    const { wordIndex } = this.state;
+    if (this.state.wordIndex < words.length) {
+      words[wordIndex].wordsNative.forEach(solution => {
+        if (this.state.answer === solution) {
+          this.setState({ isCorrect: true });
+        }
+      });
+      setTimeout(() => this.onSolutionSubmitted(), 2000);
       this.setState({
         isAnswered: true,
         isDisabled: true
@@ -46,10 +48,10 @@ class TodayWords extends Component {
     }
   }
 
-  onSolutionSubmitted = (isCorrect) => {
+  onSolutionSubmitted = () => {
     const newWords = [...this.props.words];
     newWords[this.state.wordIndex].isAsked = true;
-    newWords[this.state.wordIndex].isCorrect = isCorrect;
+    newWords[this.state.wordIndex].isCorrect = this.state.isCorrect;
 
     this.props.modifyTodaysWords(newWords);
 
