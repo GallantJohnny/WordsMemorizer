@@ -1,6 +1,8 @@
 // Todays words
 export const GET_TODAYS_WORDS = 'GET_TODAYS_WORDS';
 export const EDIT_TODAYS_WORDS = 'EDIT_TODAYS_WORDS';
+export const SET_IS_CORRECT = 'SET_IS_CORRECT';
+export const SET_IS_ANSWERED_TO_TRUE = 'SET_IS_ANSWERED_TO_TRUE';
 
 // User words
 export const WORD_ADDED = 'WORD_ADDED';

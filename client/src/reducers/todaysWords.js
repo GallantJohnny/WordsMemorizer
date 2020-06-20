@@ -1,4 +1,10 @@
-import { EDIT_TODAYS_WORDS, GET_TODAYS_WORDS } from '../actions/types';
+import deepCopy from './deepCopy';
+import {
+  EDIT_TODAYS_WORDS,
+  GET_TODAYS_WORDS,
+  SET_IS_CORRECT,
+  SET_IS_ANSWERED_TO_TRUE
+} from '../actions/types';
 
 const initialState = {
   isLoading: false,
@@ -9,6 +15,7 @@ const initialState = {
 }
 
 export default function (state = initialState, action) {
+  let newState = deepCopy(state);
   switch (action.type) {
     case GET_TODAYS_WORDS:
       return {
