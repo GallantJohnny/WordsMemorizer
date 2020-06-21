@@ -25,6 +25,9 @@ export default function (state = initialState, action) {
     case SET_IS_CORRECT:
       newState.words[payload.index].isCorrect = action.payload;
       return newState;
+    case SET_IS_ANSWERED_TO_TRUE:
+      newState.words[payload.index].isAnswered = true;
+      return newState;
     default:
       return newState;
   }
