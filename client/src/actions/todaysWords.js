@@ -24,7 +24,8 @@ export const setIsCorrect = (isCorrect, index) => {
 
 export const setIsAnsweredToTrue = index => {
   return {
-    type: SET_IS_ANSWERED_TO_TRUE
+    type: SET_IS_ANSWERED_TO_TRUE,
+    payload: { index }
   }
 }
 
