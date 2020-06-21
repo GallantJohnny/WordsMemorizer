@@ -23,7 +23,7 @@ export default function (state = initialState, action) {
       newState.createdDate = action.payload.createdDate;
       return newState;
     case SET_IS_CORRECT:
-      newState.words[0].isCorrect = action.payload;
+      newState.words[payload.index].isCorrect = action.payload;
       return newState;
     default:
       return newState;
