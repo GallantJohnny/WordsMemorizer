@@ -15,10 +15,10 @@ export const modifyTodaysWords = modifiedWords => {
   }
 }
 
-export const setIsCorrect = isCorrect => {
+export const setIsCorrect = (isCorrect, index) => {
   return {
     type: SET_IS_CORRECT,
-    payload: isCorrect
+    payload: { isCorrect, index }
   }
 }
 

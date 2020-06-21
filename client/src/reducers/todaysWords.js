@@ -18,18 +18,14 @@ export default function (state = initialState, action) {
   let newState = deepCopy(state);
   switch (action.type) {
     case GET_TODAYS_WORDS:
-      return {
-        ...state,
-        todaysWords: action.payload.todaysWords,
-        id: action.payload.id,
-        createdDate: action.payload.createdDate
-      }
-    case EDIT_TODAYS_WORDS:
-      return {
-        ...state,
-        todaysWords: [...action.payload]
-      }
+      newState.todaysWords = action.payload.todaysWords;
+      newState.id = action.payload.id;
+      newState.createdDate = action.payload.createdDate;
+      return newState;
+    case SET_IS_CORRECT:
+      newState.words[0].isCorrect = action.payload;
+      return newState;
     default:
-      return state;
+      return newState;
   }
 }

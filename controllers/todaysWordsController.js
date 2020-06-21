@@ -10,6 +10,8 @@ exports.createTodaysWords = (req, res) => {
         for (let i = 0; i < 5; i++) {
           let rndIndex = Math.floor(Math.random() * vocabulary.words.length);
           selectedWords.push(vocabulary.words.splice(rndIndex, 1)[0]);
+          selectedWords.words[i].isCorrect = false;
+          selectedWords.words[i].isAsked = false;
           console.log(rndIndex);
           console.log(selectedWords);
         }
