@@ -40,7 +40,7 @@ class TodayWords extends Component {
     const { wordIndex } = this.state;
     if (this.state.wordIndex < words.length) {
       words[wordIndex].wordsNative.forEach(solution => {
-        if (this.state.answer === solution) {
+        if (this.state.answer === solution.value) {
           this.setState({ isCorrect: true });
         }
       });
@@ -75,25 +75,28 @@ class TodayWords extends Component {
   }
 
   render() {
-    console.log(this.props.words);
-    let index = this.props.words - 1;
+    const { words } = this.props;
+    const { wordIndex, isAnswered, isCorrect, isDisabled, input, answer } = this.state;
+
+    console.log(words);
+    let index = words.length - 1;
     let word = "No more Words for Today!";
 
-    const scoreIndicators = this.props.words.map((word) => {
-      return <ScoreIndicator key={uuid()} isCorrect={word.isCorrect} isAsked={word.isAsked} />
+    const scoreIndicators = words.map(word => {
+      return <ScoreIndicator key={word._id} isCorrect={word.isCorrect} isAsked={word.isAnswered} />
     });
 
-    if (this.state.wordIndex < this.props.words.length) {
-      index = this.state.wordIndex;
-      word = this.props.words[index].word;
+    if (wordIndex < words.length) {
+      index = wordIndex;
+      word = words[index].wordEng;
     }
 
     return (
       <Container className="y-4 rounded-lg" style={{ width: '350px', marginTop: '100px' }}>
         <Word
           word={word}
-          isAnswered={this.state.isAnswered}
-          isCorrect={this.state.isCorrect}
+          isAnswered={isAnswered}
+          isCorrect={isCorrect}
         />
         <Container className='d-flex my-3'>
           {scoreIndicators}
@@ -102,18 +105,18 @@ class TodayWords extends Component {
           <FormGroup>
             <Label for="answer" hidden></Label>
             <Input
-              disabled={this.state.isDisabled}
+              disabled={isDisabled}
               type="text"
               name="answer"
               placeholder="Your Answer"
               autoComplete="off"
-              value={this.state.answer}
+              value={answer}
               onChange={this.onAnswerChange}
-              ref={this.state.input}
+              ref={input}
             ></Input>
           </FormGroup>
           <Button
-            disabled={this.state.isDisabled}
+            disabled={isDisabled}
             className="w-100"
             onClick={(e) => this.checkSolution(e)}>
             Check Answer
@@ -134,7 +137,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   setIsCorrect: (isCorrect, index) => dispatch(setIsCorrect(isCorrect, index)),
-  setIsAnswered: index => dispatch(setIsAnsweredToTrue(index)),
+  setIsAnsweredToTrue: index => dispatch(setIsAnsweredToTrue(index)),
   getTodaysWords: () => dispatch(getTodaysWords())
 })
 
