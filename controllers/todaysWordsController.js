@@ -10,8 +10,8 @@ exports.createTodaysWords = (req, res) => {
         for (let i = 0; i < 5; i++) {
           let rndIndex = Math.floor(Math.random() * vocabulary.words.length);
           selectedWords.push(vocabulary.words.splice(rndIndex, 1)[0]);
-          selectedWords.words[i].isCorrect = false;
-          selectedWords.words[i].isAsked = false;
+          selectedWords[i].isCorrect = false;
+          selectedWords[i].isAsked = false;
           console.log(rndIndex);
           console.log(selectedWords);
         }
@@ -19,14 +19,14 @@ exports.createTodaysWords = (req, res) => {
           ownerId: req.userId,
           words: selectedWords
         });
-        newTodaysWords.save().then(() => {
+        newTodaysWords.save().then(todaysWords => {
           res.status(200).json({
             todaysWords: todaysWords.words,
             id: todaysWords._id,
             createdDate: todaysWords.createdDate
           });
         })
-          .catch(err => res.status(404).json({ msg: 'Error occoured' }));
+          .catch(err => res.status(400).json({ msg: 'Error occoured' }));
       });
     } else {
       console.log(todaysWords);
