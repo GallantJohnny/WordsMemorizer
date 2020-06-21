@@ -14,7 +14,11 @@ import {
 import ScoreIndicator from "./ScoreIndicator";
 import Word from "./Word";
 
-import { modifyTodaysWords, getTodaysWords } from '../actions/todaysWords';
+import {
+  setIsCorrect,
+  setIsAnsweredToTrue,
+  getTodaysWords
+} from '../actions/todaysWords';
 
 class TodayWords extends Component {
   state = {
@@ -49,18 +53,17 @@ class TodayWords extends Component {
   }
 
   onSolutionSubmitted = () => {
-    const newWords = [...this.props.words];
-    newWords[this.state.wordIndex].isAsked = true;
-    newWords[this.state.wordIndex].isCorrect = this.state.isCorrect;
+    const { wordIndex, isCorrect } = this.state;
 
-    this.props.modifyTodaysWords(newWords);
+    this.props.setIsCorrect(isCorrect, wordIndex);
+    this.props.setIsAnsweredToTrue(wordIndex);
 
     this.setState({
-      wordIndex: this.state.wordIndex + 1,
+      wordIndex: wordIndex + 1,
       answer: "",
       isCorrect: false,
       isAnswered: false,
-      isDisabled: this.state.wordIndex === this.props.words.length - 1 ? true : false
+      isDisabled: wordIndex === this.props.words.length - 1 ? true : false
     });
   }
 
@@ -130,7 +133,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  modifyTodaysWords: (modifiedWords) => dispatch(modifyTodaysWords(modifiedWords)),
+  setIsCorrect: (isCorrect, index) => dispatch(setIsCorrect(isCorrect, index)),
+  setIsAnswered: index => dispatch(setIsAnsweredToTrue(index)),
   getTodaysWords: () => dispatch(getTodaysWords())
 })
 
