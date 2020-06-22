@@ -5,7 +5,8 @@ import {
   GET_TODAYS_WORDS,
   EDIT_TODAYS_WORDS,
   SET_IS_ANSWERED_TO_TRUE,
-  SET_IS_CORRECT
+  SET_IS_CORRECT,
+  UPDATE_TODAYS_WORDS_IN_DB
 } from './types';
 
 export const modifyTodaysWords = modifiedWords => {
@@ -38,5 +39,16 @@ export const getTodaysWords = () => {
       });
     }).catch(err => console.log(err));
 
+  }
+}
+
+export const updateTodaysWordsInDb = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: UPDATE_TODAYS_WORDS_IN_DB
+    });
+    axios.post('/updateTodaysWords', getState().words, getToken(getState)).catch(err => {
+      console.log(err);
+    })
   }
 }

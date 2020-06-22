@@ -5,6 +5,7 @@ exports.createTodaysWords = (req, res) => {
   console.log('[createTodaysWords]');
   TodaysWords.findOne({ ownerId: req.userId, isCompleted: false }).then(todaysWords => {
     if (!todaysWords) {
+      console.log('[no todaysWords collection found, creating new one]');
       Vocabulary.findOne({ ownerId: req.userId }).then(vocabulary => {
         let selectedWords = [];
         for (let i = 0; i < 5; i++) {
@@ -12,8 +13,6 @@ exports.createTodaysWords = (req, res) => {
           selectedWords.push(vocabulary.words.splice(rndIndex, 1)[0]);
           selectedWords[i].isCorrect = false;
           selectedWords[i].isAnswered = false;
-          console.log(rndIndex);
-          console.log(selectedWords);
         }
         const newTodaysWords = new TodaysWords({
           ownerId: req.userId,
@@ -29,7 +28,7 @@ exports.createTodaysWords = (req, res) => {
           .catch(err => res.status(400).json({ msg: 'Error occoured' }));
       });
     } else {
-      console.log(todaysWords);
+      console.log('[found todaysWords collection, no need to create new one]')
       res.status(200).json({
         todaysWords: todaysWords.words,
         id: todaysWords._id,
@@ -37,4 +36,22 @@ exports.createTodaysWords = (req, res) => {
       });
     }
   })
+}
+
+exports.updateTodaysWords = (req, res) => {
+  console.log('Delete then create new todaysWords');
+  console.log(req.body);
+  TodaysWords.deleteOne({ ownerId: req.userId }).then(() => {
+    const { todaysWords, isCompleted, score, createdDate, answeredDate, _id } = req.body;
+    const updatedTodaysWords = new TodaysWords({
+      ownerId: req.userId,
+      words: todaysWords,
+      isCompleted: isCompleted,
+      score: score,
+      createdDate: createdDate,
+      answeredDate: answeredDate,
+      _id: _id
+    });
+    console.log(updatedTodaysWords);
+  });
 }

@@ -17,7 +17,8 @@ import Word from "./Word";
 import {
   setIsCorrect,
   setIsAnsweredToTrue,
-  getTodaysWords
+  getTodaysWords,
+  updateTodaysWordsInDb
 } from '../actions/todaysWords';
 
 class TodayWords extends Component {
@@ -33,6 +34,10 @@ class TodayWords extends Component {
   componentDidMount() {
     this.props.getTodaysWords();
   }
+
+  /*componentWillUnmount() {
+    this.props.updateTodaysWordsInDb(this.props.words);
+  }*/
 
   checkSolution = (e) => {
     e.preventDefault();
@@ -57,6 +62,7 @@ class TodayWords extends Component {
 
     this.props.setIsCorrect(isCorrect, wordIndex);
     this.props.setIsAnsweredToTrue(wordIndex);
+    this.props.updateTodaysWordsInDb();
 
     this.setState({
       wordIndex: wordIndex + 1,
@@ -138,7 +144,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   setIsCorrect: (isCorrect, index) => dispatch(setIsCorrect(isCorrect, index)),
   setIsAnsweredToTrue: index => dispatch(setIsAnsweredToTrue(index)),
-  getTodaysWords: () => dispatch(getTodaysWords())
+  getTodaysWords: () => dispatch(getTodaysWords()),
+  updateTodaysWordsInDb: () => dispatch(updateTodaysWordsInDb())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodayWords);

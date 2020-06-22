@@ -3,7 +3,8 @@ import {
   EDIT_TODAYS_WORDS,
   GET_TODAYS_WORDS,
   SET_IS_CORRECT,
-  SET_IS_ANSWERED_TO_TRUE
+  SET_IS_ANSWERED_TO_TRUE,
+  UPDATE_TODAYS_WORDS_IN_DB
 } from '../actions/types';
 
 const initialState = {
@@ -28,6 +29,8 @@ export default function (state = initialState, action) {
     case SET_IS_ANSWERED_TO_TRUE:
       newState.todaysWords[action.payload.index].isAnswered = true;
       return newState;
+    case UPDATE_TODAYS_WORDS_IN_DB:
+
     default:
       return newState;
   }
