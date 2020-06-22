@@ -53,5 +53,6 @@ exports.updateTodaysWords = (req, res) => {
       _id: _id
     });
     console.log(updatedTodaysWords);
+    TodaysWords.save();
   });
 }
