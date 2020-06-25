@@ -6,7 +6,8 @@ import {
   EDIT_TODAYS_WORDS,
   SET_IS_ANSWERED_TO_TRUE,
   SET_IS_CORRECT,
-  UPDATE_TODAYS_WORDS_IN_DB
+  UPDATE_TODAYS_WORDS_IN_DB,
+  CALCULATE_WORDINDEX
 } from './types';
 
 export const modifyTodaysWords = modifiedWords => {
@@ -32,23 +33,22 @@ export const setIsAnsweredToTrue = index => {
 
 export const getTodaysWords = () => {
   return (dispatch, getState) => {
-    axios.get('/todaysWords', getToken(getState)).then(todaysWords => {
+    axios.get('/todaysWords', getToken(getState)).then(response => {
       dispatch({
         type: GET_TODAYS_WORDS,
-        payload: todaysWords.data
+        payload: response.data
       });
+      dispatch({ type: CALCULATE_WORDINDEX });
     }).catch(err => console.log(err));
-
   }
 }
 
 export const updateTodaysWordsInDb = () => {
   return (dispatch, getState) => {
-    dispatch({
-      type: UPDATE_TODAYS_WORDS_IN_DB
-    });
+    dispatch({ type: UPDATE_TODAYS_WORDS_IN_DB });
     axios.post('/updateTodaysWords', getState().words, getToken(getState)).catch(err => {
       console.log(err);
-    })
+    });
+    dispatch({ type: CALCULATE_WORDINDEX });
   }
 }

@@ -28,22 +28,20 @@ class TodayWords extends Component {
     isAnswered: false,
     isCorrect: false,
     isDisabled: false,
-    wordIndex: 0,
+    wordIndex: this.props.wordIndex
   }
 
   componentDidMount() {
     this.props.getTodaysWords();
+    console.log(this.props.words);
+    this.props.words.forEach((word, index) => console.log(index));
   }
-
-  /*componentWillUnmount() {
-    this.props.updateTodaysWordsInDb(this.props.words);
-  }*/
 
   checkSolution = (e) => {
     e.preventDefault();
-    const { words } = this.props;
-    const { wordIndex } = this.state;
-    if (this.state.wordIndex < words.length) {
+    const { words, wordIndex } = this.props;
+    //const { wordIndex } = this.state;
+    if (wordIndex < words.length) {
       words[wordIndex].wordsNative.forEach(solution => {
         if (this.state.answer === solution.value) {
           this.setState({ isCorrect: true });
@@ -58,7 +56,8 @@ class TodayWords extends Component {
   }
 
   onSolutionSubmitted = () => {
-    const { wordIndex, isCorrect } = this.state;
+    const { isCorrect } = this.state;
+    const { wordIndex } = this.props;
 
     this.props.setIsCorrect(isCorrect, wordIndex);
     this.props.setIsAnsweredToTrue(wordIndex);
@@ -81,8 +80,8 @@ class TodayWords extends Component {
   }
 
   render() {
-    const { words } = this.props;
-    const { wordIndex, isAnswered, isCorrect, isDisabled, input, answer } = this.state;
+    const { words, wordIndex } = this.props;
+    const { isAnswered, isCorrect, isDisabled, input, answer } = this.state;
 
     console.log(words);
     let index = words.length - 1;
@@ -138,7 +137,8 @@ TodayWords.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  words: state.words.todaysWords
+  words: state.words.todaysWords,
+  wordIndex: state.words.wordIndex
 })
 
 const mapDispatchToProps = dispatch => ({
