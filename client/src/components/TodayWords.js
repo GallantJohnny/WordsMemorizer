@@ -84,7 +84,6 @@ class TodayWords extends Component {
     const { isAnswered, isCorrect, isDisabled, input, answer } = this.state;
 
     console.log(words);
-    let index = words.length - 1;
     let word = "No more Words for Today!";
 
     const scoreIndicators = words.map(word => {
@@ -92,8 +91,7 @@ class TodayWords extends Component {
     });
 
     if (wordIndex < words.length) {
-      index = wordIndex;
-      word = words[index].wordEng;
+      word = words[wordIndex].wordEng;
     }
 
     return (

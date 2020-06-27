@@ -7,7 +7,8 @@ import {
   SET_IS_ANSWERED_TO_TRUE,
   SET_IS_CORRECT,
   UPDATE_TODAYS_WORDS_IN_DB,
-  CALCULATE_WORDINDEX
+  CALCULATE_WORDINDEX,
+  TOKEN_AUTHENTICATION_FAILED
 } from './types';
 
 export const modifyTodaysWords = modifiedWords => {
@@ -39,7 +40,9 @@ export const getTodaysWords = () => {
         payload: response.data
       });
       dispatch({ type: CALCULATE_WORDINDEX });
-    }).catch(err => console.log(err));
+    }).catch(err => {
+      dispatch({ type: TOKEN_AUTHENTICATION_FAILED });
+    });
   }
 }
 

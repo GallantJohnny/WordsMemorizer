@@ -1,6 +1,5 @@
 import deepCopy from './deepCopy';
 import {
-  EDIT_TODAYS_WORDS,
   GET_TODAYS_WORDS,
   SET_IS_CORRECT,
   SET_IS_ANSWERED_TO_TRUE,
@@ -25,10 +24,7 @@ export default function (state = initialState, action) {
       newState.todaysWords.forEach((todayWord, index) => {
         console.log(todayWord);
         console.log(index);
-        if (todayWord.isAnswered) {
-          wordIndex = index + 1;
-          return;
-        }
+        if (todayWord.isAnswered) wordIndex = index + 1;
       });
       newState.wordIndex = wordIndex;
       return newState;
