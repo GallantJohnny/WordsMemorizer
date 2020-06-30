@@ -85,3 +85,11 @@ exports.login = function (req, res) {
       });
   }).catch(() => res.status(401).json({ msg: 'Incorrect password or email' }));
 }
+
+exports.setIsTodaysWordsAnswered = function (req, res) {
+  console.log('-----------    setIsTodaysWordsAnswered    -----------');
+  User.updateOne({ _id: req.userId }, { isTodaysWordsAnswered: req.isTodaysWordsAnswered }).catch(err => {
+    console.log(err);
+    res.status(400).end();
+  });
+}
