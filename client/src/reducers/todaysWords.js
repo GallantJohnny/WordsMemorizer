@@ -40,7 +40,7 @@ export default function (state = initialState, action) {
       newState.todaysWords[action.payload.index].isAnswered = true;
       return newState;
     case UPDATE_TODAYS_WORDS_IN_DB:
-
+      return newState;
     default:
       return newState;
   }
