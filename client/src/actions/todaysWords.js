@@ -8,7 +8,8 @@ import {
   SET_IS_CORRECT,
   UPDATE_TODAYS_WORDS_IN_DB,
   CALCULATE_WORDINDEX,
-  TOKEN_AUTHENTICATION_FAILED
+  TOKEN_AUTHENTICATION_FAILED,
+  SET_IS_TODAYS_WORDS_ANSWERED
 } from './types';
 
 export const modifyTodaysWords = modifiedWords => {
@@ -53,5 +54,11 @@ export const updateTodaysWordsInDb = () => {
       console.log(err);
     });
     dispatch({ type: CALCULATE_WORDINDEX });
+  }
+}
+
+export const setIsTodaysWordsAnswered = isTodaysWordsAnswered => {
+  return dispatch => {
+    dispatch({ type: SET_IS_TODAYS_WORDS_ANSWERED });
   }
 }
