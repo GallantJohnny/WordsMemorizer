@@ -58,7 +58,10 @@ export const updateTodaysWordsInDb = () => {
 }
 
 export const setIsTodaysWordsAnswered = isTodaysWordsAnswered => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    axios.post('/setIsTodaysWordsAnswered', isTodaysWordsAnswered, getToken(getState)).catch(err => {
+      console.log(err);
+    })
     dispatch({ type: SET_IS_TODAYS_WORDS_ANSWERED });
   }
 }
